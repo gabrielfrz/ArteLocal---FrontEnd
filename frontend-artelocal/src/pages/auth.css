@@ -9,11 +9,13 @@
   background: linear-gradient(to right, #0e0e10, #1a1a1f);
   color: #f0f0f0;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .auth-container h2 {
   margin-bottom: 2rem;
   font-size: 2rem;
+  color: #ffffff;
 }
 
 .auth-container form {
@@ -22,6 +24,7 @@
   gap: 1rem;
   width: 100%;
   max-width: 320px;
+  margin: 0 auto;
 }
 
 .auth-container input {
@@ -30,6 +33,13 @@
   border-radius: 6px;
   font-size: 1rem;
   background: #ffffff;
+  color: #000;
+  transition: box-shadow 0.2s ease;
+}
+
+.auth-container input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4ea8de66;
 }
 
 .auth-container button {
@@ -39,6 +49,7 @@
   border: none;
   border-radius: 6px;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -47,13 +58,15 @@
 .auth-container button:hover {
   background-color: #2196f3;
 }
+
 .back-button {
   margin-top: 1.5rem;
   display: inline-block;
   color: #4ea8de;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
+  font-size: 0.95rem;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .back-button:hover {

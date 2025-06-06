@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './auth.css';
 
 export default function Register() {
@@ -12,15 +13,21 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('https://seu-backend.vercel.app/user/register', {
+      const res = await fetch('https://artelocal-backend.vercel.app/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
+
       const data = await res.json();
-      alert(data.message || 'Usuário registrado');
+
+      if (res.ok) {
+        toast.success(data.message || 'Usuário registrado com sucesso!');
+      } else {
+        toast.error(data.error || 'Erro ao registrar.');
+      }
     } catch (err) {
-      alert('Erro ao registrar.');
+      toast.error('Erro ao registrar.');
     }
   };
 

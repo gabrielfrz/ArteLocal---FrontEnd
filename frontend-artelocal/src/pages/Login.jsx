@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './auth.css';
 
 export default function Login() {
@@ -12,19 +13,22 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('https://seu-backend.vercel.app/user/login', {
+      const res = await fetch('https://artelocal-backend.vercel.app/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
+
       const data = await res.json();
+
       if (data.token) {
-        alert(`Bem-vindo, ${data.name}`);
+        localStorage.setItem('token', data.token);
+        toast.success(`Bem-vindo, ${data.name}`);
       } else {
-        alert('Login inválido');
+        toast.error(data.error || 'Login inválido');
       }
     } catch (err) {
-      alert('Erro ao logar.');
+      toast.error('Erro ao logar.');
     }
   };
 
