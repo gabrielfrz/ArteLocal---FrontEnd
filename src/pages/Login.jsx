@@ -22,13 +22,22 @@ export default function Login() {
 
       const data = await res.json();
 
-      if (data.token) {
+      if (res.ok && data.token) {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('userRole', data.role); // Salva o perfil (client ou artisan)
+        localStorage.setItem('userRole', data.role);  // <- Agora confere exatamente o nome do backend
+        localStorage.setItem('userName', data.name);
+
         toast.success(`Bem-vindo, ${data.name}`);
-        navigate('/dashboard'); // Redireciona para o Dashboard
+
+        if (data.role === 'artisan') {
+          navigate('/dashboard-artisan');
+        } else if (data.role === 'client') {
+          navigate('/dashboard-client');
+        } else {
+          toast.error('Perfil de usuário inválido');
+        }
       } else {
-        toast.error(data.error || 'Login inválido');
+        toast.error(data.message || 'Login inválido');
       }
     } catch (err) {
       toast.error('Erro ao logar.');

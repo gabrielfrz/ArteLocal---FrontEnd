@@ -1,4 +1,4 @@
-.dashboard-container {
+.client-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,47 +8,43 @@
   background: linear-gradient(to right, #0e0e10, #1a1a1f);
   color: #f0f0f0;
   text-align: center;
-  box-sizing: border-box;
 }
 
-.dashboard-container h2 {
+.client-container h2 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #ffffff;
 }
 
-.dashboard-card {
+.client-card {
   background-color: #1e1e2f;
   padding: 1.5rem;
-  border-radius: 10px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  width: 100%;
   max-width: 400px;
-  text-align: left;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
-.dashboard-card h3 {
-  color: #3b82f6;
-  margin-bottom: 0.5rem;
-}
-
-.dashboard-card p {
-  color: #d1d5db;
+.client-card p {
   margin-bottom: 1rem;
   font-size: 0.95rem;
 }
 
-.dashboard-button {
-  display: inline-block;
+.dashboard-button,
+.back-button,
+.logout-button {
+  margin-top: 0.8rem;
   padding: 10px 16px;
-  background-color: #4ea8de;
-  color: white;
-  text-decoration: none;
+  border: none;
   border-radius: 6px;
   font-weight: 600;
+  cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.dashboard-button {
+  background-color: #4ea8de;
+  color: white;
 }
 
 .dashboard-button:hover {
@@ -56,15 +52,8 @@
 }
 
 .logout-button {
-  margin-top: 1.5rem;
-  padding: 10px 16px;
   background-color: #ef4444;
   color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {
