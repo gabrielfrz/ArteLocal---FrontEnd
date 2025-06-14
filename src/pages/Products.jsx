@@ -46,6 +46,7 @@ export default function Products() {
               <p><strong>Preço:</strong> R$ {product.price}</p>
               <p><strong>Contato:</strong> {product.contact}</p>
 
+              {/* Exibe a imagem se for uma URL válida */}
               {product.image && product.image.startsWith('http') && (
                 <img src={product.image} alt={product.title} className="product-image" />
               )}
