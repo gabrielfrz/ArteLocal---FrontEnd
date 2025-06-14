@@ -10,7 +10,7 @@ export default function CreateProduct() {
     description: '',
     price: '',
     contact: '',
-    image: '' 
+    image: ''
   });
 
   const handleChange = (e) => {
@@ -88,11 +88,18 @@ export default function CreateProduct() {
         <input
           type="text"
           name="image"
-          placeholder="Nome da imagem (ex: monalisa.jpg)"
+          placeholder="URL da Imagem (ex: https://...)"
           value={form.image}
           onChange={handleChange}
           required
         />
+
+        {form.image && form.image.startsWith('http') && (
+          <div className="image-preview">
+            <p>Pré-visualização da Imagem:</p>
+            <img src={form.image} alt="Preview" />
+          </div>
+        )}
 
         <button type="submit">Anunciar</button>
       </form>
