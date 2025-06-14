@@ -73,3 +73,61 @@
   color: #2196f3;
   text-decoration: underline;
 }
+
+
+
+
+
+.role-selection {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+.role-selection h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.role-selection p {
+  font-size: 0.95rem;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+}
+
+.role-option {
+  background-color: #1e293b;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.role-option h4 {
+  margin-bottom: 0.5rem;
+  color: #3b82f6;
+}
+
+.role-option p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+.role-option:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  background-color: #0f172a;
+}
+
+.role-option.selected {
+  border-color: #3b82f6;
+  background-color: #0f172a;
+}
+
