@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import './auth.css';  
 import './dashboardArtisan.css';
 
 export default function DashboardArtisan() {
@@ -11,19 +10,24 @@ export default function DashboardArtisan() {
   };
 
   return (
-    <div className="auth-container">
+    <div className="artisan-container">
       <h2>🎨 Painel do Artesão</h2>
 
-      <div className="dashboard-card">
-        <p>Bem-vindo ao seu espaço criativo! Aqui você pode divulgar suas obras e alcançar centenas de novos clientes.</p>
+      <div className="artisan-card">
+        <p>
+          Bem-vindo ao seu espaço criativo! Aqui você pode divulgar suas obras, alcançar
+          centenas de novos clientes e fazer parte da nossa comunidade de artistas em destaque.
+        </p>
 
-        <Link to="/create-product" className="dashboard-button">
-          Anunciar Nova Obra
-        </Link>
+        <div className="button-group">
+          <Link to="/create-product" className="artisan-button primary">
+            Anunciar Nova Obra
+          </Link>
 
-        <Link to="/products" className="dashboard-button" style={{ marginTop: '1rem' }}>
-          Ver Meus Anúncios
-        </Link>
+          <Link to="/products" className="artisan-button secondary">
+            Ver Meus Anúncios
+          </Link>
+        </div>
       </div>
 
       <button onClick={handleLogout} className="logout-button">

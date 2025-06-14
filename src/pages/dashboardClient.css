@@ -13,6 +13,7 @@
 .client-container h2 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
+  color: #ffffff;
 }
 
 .client-card {
@@ -27,33 +28,40 @@
 
 .client-card p {
   margin-bottom: 1rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  color: #d1d5db;
 }
 
-.dashboard-button,
-.back-button,
-.logout-button {
-  margin-top: 0.8rem;
+.client-button {
+  display: inline-block;
   padding: 10px 16px;
   border: none;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.dashboard-button {
-  background-color: #4ea8de;
+  text-decoration: none;
   color: white;
 }
 
-.dashboard-button:hover {
+.client-button.primary {
+  background-color: #4ea8de;
+}
+
+.client-button.primary:hover {
   background-color: #2196f3;
 }
 
 .logout-button {
+  margin-top: 1rem;
+  padding: 10px 16px;
   background-color: #ef4444;
   color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {

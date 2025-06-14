@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import './auth.css';  
 import './dashboardClient.css';
 
 export default function DashboardClient() {
@@ -11,13 +10,16 @@ export default function DashboardClient() {
   };
 
   return (
-    <div className="auth-container">
+    <div className="client-container">
       <h2>🛒 Área do Cliente</h2>
 
-      <div className="dashboard-card">
-        <p>Explore a criatividade de artesãos de todo o Brasil! Navegue por diversas obras de arte e encontre a peça perfeita para você.</p>
+      <div className="client-card">
+        <p>
+          Explore a criatividade de artesãos de todo o Brasil! Navegue por diversas obras de arte e
+          encontre a peça perfeita para você.
+        </p>
 
-        <Link to="/products" className="dashboard-button">
+        <Link to="/products" className="client-button primary">
           Ver Obras Disponíveis
         </Link>
       </div>

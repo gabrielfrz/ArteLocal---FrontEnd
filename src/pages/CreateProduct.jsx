@@ -1,36 +1,45 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './createProduct.css';
 
 export default function CreateProduct() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     title: '',
     description: '',
     price: '',
-    image: '',
     contact: '',
-    artistName: localStorage.getItem('userName') || ''
+    imageFile: null,
   });
 
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleImageChange = (e) => {
+    setForm({ ...form, imageFile: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('title', form.title);
+    formData.append('description', form.description);
+    formData.append('price', form.price);
+    formData.append('contact', form.contact);
+    formData.append('image', form.imageFile);
 
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('https://artelocal-backend.vercel.app/products', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(form)
+        body: formData,
       });
 
       const data = await res.json();
@@ -39,10 +48,10 @@ export default function CreateProduct() {
         toast.success('Produto anunciado com sucesso!');
         navigate('/dashboard-artisan');
       } else {
-        toast.error(data.message || 'Erro ao anunciar o produto.');
+        toast.error(data.message || 'Erro ao anunciar produto.');
       }
-    } catch (error) {
-      toast.error('Erro ao anunciar o produto.');
+    } catch (err) {
+      toast.error('Erro de rede ao anunciar produto.');
     }
   };
 
@@ -50,19 +59,68 @@ export default function CreateProduct() {
     <div className="create-product-container">
       <h2>Anunciar Nova Obra</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input name="title" placeholder="Título da Obra" onChange={handleChange} required />
-        <textarea name="description" placeholder="Descrição" onChange={handleChange} required rows="4" />
-        <input name="price" placeholder="Preço (Ex: 300.00)" onChange={handleChange} required />
-        <input name="image" placeholder="URL da Imagem" onChange={handleChange} required />
-        <input name="contact" placeholder="Informações de Contato" onChange={handleChange} required />
+      <form onSubmit={handleSubmit} className="create-product-form">
+        <input
+          type="text"
+          name="title"
+          placeholder="Título da Obra"
+          value={form.title}
+          onChange={handleChange}
+          required
+        />
+
+        <textarea
+          name="description"
+          placeholder="Descrição"
+          value={form.description}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="number"
+          name="price"
+          placeholder="Preço (Ex: 300.00)"
+          value={form.price}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="text"
+          name="contact"
+          placeholder="Informações de Contato"
+          value={form.contact}
+          onChange={handleChange}
+          required
+        />
+
+        <div className="file-input-container">
+          <label htmlFor="imageUpload" className="file-input-label">
+            Selecione a Imagem da Obra
+          </label>
+          <input
+            type="file"
+            id="imageUpload"
+            accept="image/*"
+            onChange={handleImageChange}
+            required
+          />
+          {form.imageFile && (
+            <img
+              src={URL.createObjectURL(form.imageFile)}
+              alt="Pré-visualização"
+              className="image-preview"
+            />
+          )}
+        </div>
 
         <button type="submit">Anunciar</button>
       </form>
 
-      <button onClick={() => navigate('/dashboard-artisan')} className="back-button">
+      <Link to="/dashboard-artisan" className="back-button">
         Voltar ao Painel
-      </button>
+      </Link>
     </div>
   );
 }
