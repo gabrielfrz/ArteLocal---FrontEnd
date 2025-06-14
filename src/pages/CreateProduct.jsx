@@ -21,6 +21,9 @@ export default function CreateProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const userName = localStorage.getItem('userName');  
+    const formWithArtist = { ...form, artistName: userName };
+
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('https://artelocal-backend.vercel.app/products', {
@@ -29,7 +32,7 @@ export default function CreateProduct() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(formWithArtist),
       });
 
       const data = await res.json();
