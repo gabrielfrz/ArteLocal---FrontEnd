@@ -10,7 +10,7 @@ export default function CreateProduct() {
     description: '',
     price: '',
     contact: '',
-    imageFile: null,
+    image: '' 
   });
 
   const handleChange = (e) => {
@@ -18,28 +18,18 @@ export default function CreateProduct() {
     setForm({ ...form, [name]: value });
   };
 
-  const handleImageChange = (e) => {
-    setForm({ ...form, imageFile: e.target.files[0] });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('title', form.title);
-    formData.append('description', form.description);
-    formData.append('price', form.price);
-    formData.append('contact', form.contact);
-    formData.append('image', form.imageFile);
 
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('https://artelocal-backend.vercel.app/products', {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: formData,
+        body: JSON.stringify(form),
       });
 
       const data = await res.json();
@@ -95,25 +85,14 @@ export default function CreateProduct() {
           required
         />
 
-        <div className="file-input-container">
-          <label htmlFor="imageUpload" className="file-input-label">
-            Selecione a Imagem da Obra
-          </label>
-          <input
-            type="file"
-            id="imageUpload"
-            accept="image/*"
-            onChange={handleImageChange}
-            required
-          />
-          {form.imageFile && (
-            <img
-              src={URL.createObjectURL(form.imageFile)}
-              alt="Pré-visualização"
-              className="image-preview"
-            />
-          )}
-        </div>
+        <input
+          type="text"
+          name="image"
+          placeholder="Nome da imagem (ex: monalisa.jpg)"
+          value={form.image}
+          onChange={handleChange}
+          required
+        />
 
         <button type="submit">Anunciar</button>
       </form>

@@ -41,11 +41,15 @@ export default function Products() {
         <div className="products-grid">
           {products.map((product) => (
             <div key={product.id} className="product-card">
-              <img src={product.image} alt={product.title} className="product-image" />
+              {/* Se futuramente quiser exibir a imagem real via URL, use esse trecho abaixo */}
+              {/* <img src={`https://artelocal-backend.vercel.app/uploads/${product.image}`} alt={product.title} className="product-image" /> */}
+
+              {/* Como agora é só o nome da imagem como string, vamos exibir assim: */}
               <h3>{product.title}</h3>
               <p>{product.description}</p>
               <p><strong>Preço:</strong> R$ {product.price}</p>
               <p><strong>Contato:</strong> {product.contact}</p>
+              <p><strong>Imagem:</strong> {product.image}</p>
             </div>
           ))}
         </div>
