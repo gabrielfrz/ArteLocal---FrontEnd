@@ -16,7 +16,7 @@ export default function DashboardArtisan() {
       <div className="artisan-card">
         <p>
           Bem-vindo ao seu espaço criativo! Aqui você pode divulgar suas obras, alcançar
-          centenas de novos clientes e fazer parte da nossa comunidade de artistas em destaque.
+          novos clientes e fazer parte da nossa comunidade de artistas em destaque.
         </p>
 
         <div className="button-group">
@@ -24,7 +24,7 @@ export default function DashboardArtisan() {
             Anunciar Nova Obra
           </Link>
 
-          <Link to="/products" className="artisan-button secondary">
+          <Link to="/my-products" className="artisan-button secondary">
             Ver Meus Anúncios
           </Link>
         </div>
