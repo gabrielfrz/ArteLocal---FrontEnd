@@ -3,6 +3,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import './global.css';
+import Dashboard from './pages/Dashboard';
+
 
 export default function App() {
   return (
@@ -10,6 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>

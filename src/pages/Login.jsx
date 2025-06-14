@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './auth.css';
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,7 +24,9 @@ export default function Login() {
 
       if (data.token) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userRole', data.role); // Salva o perfil (client ou artisan)
         toast.success(`Bem-vindo, ${data.name}`);
+        navigate('/dashboard'); // Redireciona para o Dashboard
       } else {
         toast.error(data.error || 'Login inválido');
       }
