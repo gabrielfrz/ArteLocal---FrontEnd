@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import './ratingForm.css';
 
 export default function RatingForm({ artisanName, onRated }) {
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const numericScore = Number(score);
 
-    if (score < 1 || score > 5) {
+    if (numericScore < 1 || numericScore > 5) {
       toast.error('A nota precisa ser de 1 a 5 estrelas.');
       return;
     }
@@ -20,15 +22,14 @@ export default function RatingForm({ artisanName, onRated }) {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ artisanName, score })
+        body: JSON.stringify({ artisanName, score: numericScore })
       });
 
       const data = await res.json();
-
       if (res.ok) {
         toast.success('Avaliação enviada!');
+        setScore('');
         if (onRated) onRated();
-        setScore(0);
       } else {
         toast.error(data.message || 'Erro ao enviar avaliação.');
       }

@@ -1,0 +1,39 @@
+.rating-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.rating-form label {
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: #fbbf24;
+}
+
+.rating-form input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #fbbf24;
+  background-color: #1f2937;
+  color: #f0f0f0;
+  margin-bottom: 0.6rem;
+  box-sizing: border-box;
+}
+
+.rating-form button {
+  padding: 8px 14px;
+  background-color: #fbbf24;
+  border: none;
+  border-radius: 6px;
+  color: #1f2937;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.rating-form button:hover {
+  background-color: #f59e0b;
+}

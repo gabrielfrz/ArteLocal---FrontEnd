@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import './commentForm.css';
 
 export default function CommentForm({ productId, onCommentAdded }) {
-  const [content, setContent] = useState('');
+  const [text, setText] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!text.trim()) {
+      toast.error('O comentário não pode ser vazio.');
+      return;
+    }
 
     try {
       const token = localStorage.getItem('token');
@@ -15,15 +20,14 @@ export default function CommentForm({ productId, onCommentAdded }) {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ productId, content })
+        body: JSON.stringify({ productId, text })
       });
 
       const data = await res.json();
-
       if (res.ok) {
-        toast.success('Comentário adicionado com sucesso!');
+        toast.success('Comentário enviado!');
+        setText('');
         onCommentAdded(data);
-        setContent('');
       } else {
         toast.error(data.message || 'Erro ao adicionar comentário.');
       }
@@ -36,8 +40,8 @@ export default function CommentForm({ productId, onCommentAdded }) {
     <form onSubmit={handleSubmit} className="comment-form">
       <textarea
         placeholder="Deixe seu comentário..."
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
         required
       />
       <button type="submit">Enviar Comentário</button>
