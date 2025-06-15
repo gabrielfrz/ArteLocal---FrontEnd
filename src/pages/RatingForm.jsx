@@ -7,10 +7,10 @@ export default function RatingForm({ artisanName, onRated }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const numericScore = Number(score);
 
-    if (numericScore < 1 || numericScore > 5) {
-      toast.error('A nota precisa ser de 1 a 5 estrelas.');
+    const numericScore = Number(score);
+    if (isNaN(numericScore) || numericScore < 1 || numericScore > 5) {
+      toast.error('A nota precisa ser um número de 1 a 5.');
       return;
     }
 
@@ -45,6 +45,7 @@ export default function RatingForm({ artisanName, onRated }) {
         type="number"
         min="1"
         max="5"
+        step="1"
         value={score}
         onChange={(e) => setScore(e.target.value)}
         required

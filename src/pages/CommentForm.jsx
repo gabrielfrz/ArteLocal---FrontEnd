@@ -27,7 +27,7 @@ export default function CommentForm({ productId, onCommentAdded }) {
       if (res.ok) {
         toast.success('Comentário enviado!');
         setText('');
-        onCommentAdded(data);
+        if (onCommentAdded) onCommentAdded(data);
       } else {
         toast.error(data.message || 'Erro ao adicionar comentário.');
       }
