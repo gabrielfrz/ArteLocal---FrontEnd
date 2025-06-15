@@ -20,34 +20,47 @@ export default function ProductDetails() {
       const resProduct = await fetch(`https://artelocal-backend.vercel.app/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      const productData = await resProduct.json();
 
-   
+      if (resProduct.ok) {
+        setProduct(productData);
+      } else {
+        toast.error(productData.message || 'Erro ao carregar produto.');
+        return;
+      }
+
+    
       const resComments = await fetch(`https://artelocal-backend.vercel.app/comments/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-
-      const productData = await resProduct.json();
       const commentsData = await resComments.json();
 
-      if (resProduct.ok) setProduct(productData);
-      else toast.error(productData.message || 'Erro ao carregar produto.');
+      if (resComments.ok) {
+        setComments(commentsData);
+      } else {
+        toast.error('Erro ao carregar comentários.');
+      }
 
-      if (resComments.ok) setComments(commentsData);
-      else toast.error('Erro ao carregar comentários.');
-
-     
-      if (resProduct.ok && productData.artistName) {
+    
+      if (productData.artistName) {
         const resRating = await fetch(`https://artelocal-backend.vercel.app/ratings/${productData.artistName}`);
         const ratingData = await resRating.json();
-        if (resRating.ok) setAverageRating(ratingData.average);
-        else setAverageRating('Sem avaliações');
 
-      
+        if (resRating.ok) {
+          setAverageRating(ratingData.average);
+        } else {
+          setAverageRating('Sem avaliações');
+        }
+
+        
         const resCheck = await fetch(`https://artelocal-backend.vercel.app/ratings/check/${productData.artistName}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const checkData = await resCheck.json();
-        if (resCheck.ok) setAlreadyRated(checkData.alreadyRated);
+
+        if (resCheck.ok) {
+          setAlreadyRated(checkData.alreadyRated);
+        }
       }
 
     } catch {
@@ -84,7 +97,7 @@ export default function ProductDetails() {
       ) : (
         comments.map((c) => (
           <div key={c.id} className="comment">
-            <p><strong>{c.commenterName}</strong>: {c.text}</p>
+            <p><strong>{c.author}</strong>: {c.content}</p>
           </div>
         ))
       )}
