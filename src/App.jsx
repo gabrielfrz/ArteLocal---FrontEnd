@@ -6,6 +6,7 @@ import DashboardArtisan from './pages/DashboardArtisan';
 import DashboardClient from './pages/DashboardClient';
 import CreateProduct from './pages/CreateProduct';
 import Products from './pages/Products';
+import MyProducts from './pages/MyProducts';
 import './global.css';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/dashboard-client" element={<DashboardClient />} />
         <Route path="/create-product" element={<CreateProduct />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/my-products" element={<MyProducts />} />
       </Routes>
     </Router>
   );

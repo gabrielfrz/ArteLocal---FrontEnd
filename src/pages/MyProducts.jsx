@@ -6,13 +6,12 @@ import './products.css';
 export default function MyProducts() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-  const artistName = localStorage.getItem('userName');
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchUserProducts = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`https://artelocal-backend.vercel.app/products?artistName=${artistName}`, {
+        const res = await fetch('https://artelocal-backend.vercel.app/products/my', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -30,8 +29,8 @@ export default function MyProducts() {
       }
     };
 
-    fetchProducts();
-  }, [artistName]);
+    fetchUserProducts();
+  }, []);
 
   const handleBack = () => {
     navigate('/dashboard-artisan');
