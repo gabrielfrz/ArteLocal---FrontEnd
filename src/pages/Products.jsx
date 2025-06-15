@@ -6,7 +6,7 @@ import './products.css';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
-  const [order, setOrder] = useState('asc'); // Opções: asc ou desc
+  const [order, setOrder] = useState('asc');
 
   const fetchProducts = async () => {
     try {
