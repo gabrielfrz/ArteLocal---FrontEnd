@@ -192,3 +192,19 @@
   box-sizing: border-box;
   overflow: hidden;
 }
+
+.delete-button {
+  background-color: #dc2626;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #b91c1c;
+}

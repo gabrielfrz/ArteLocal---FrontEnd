@@ -14,26 +14,27 @@ export default function Register() {
     setForm({ ...form, role });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('https://artelocal-backend.vercel.app/user/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await fetch('https://artelocal-backend.vercel.app/user/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (res.ok) {
-        toast.success(data.message || 'Usuário registrado com sucesso!');
-      } else {
-        toast.error(data.error || data.message || 'Erro ao registrar.');
-      }
-    } catch (err) {
-      toast.error('Erro ao registrar.');
+    if (res.ok) {
+      toast.success(data.message || 'Usuário registrado com sucesso!');
+      navigate('/login');  // Redireciona para o login
+    } else {
+      toast.error(data.error || data.message || 'Erro ao registrar.');
     }
-  };
+  } catch (err) {
+    toast.error('Erro ao registrar.');
+  }
+};
 
   return (
     <div className="auth-container">

@@ -10,15 +10,18 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [comments, setComments] = useState([]);
   const [averageRating, setAverageRating] = useState('Carregando...');
+  const [alreadyRated, setAlreadyRated] = useState(false);
 
   const fetchDetails = async () => {
     try {
       const token = localStorage.getItem('token');
 
+     
       const resProduct = await fetch(`https://artelocal-backend.vercel.app/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
+   
       const resComments = await fetch(`https://artelocal-backend.vercel.app/comments/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -32,11 +35,19 @@ export default function ProductDetails() {
       if (resComments.ok) setComments(commentsData);
       else toast.error('Erro ao carregar comentários.');
 
+     
       if (resProduct.ok && productData.artistName) {
         const resRating = await fetch(`https://artelocal-backend.vercel.app/ratings/${productData.artistName}`);
         const ratingData = await resRating.json();
         if (resRating.ok) setAverageRating(ratingData.average);
         else setAverageRating('Sem avaliações');
+
+      
+        const resCheck = await fetch(`https://artelocal-backend.vercel.app/ratings/check/${productData.artistName}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const checkData = await resCheck.json();
+        if (resCheck.ok) setAlreadyRated(checkData.alreadyRated);
       }
 
     } catch {
@@ -73,13 +84,18 @@ export default function ProductDetails() {
       ) : (
         comments.map((c) => (
           <div key={c.id} className="comment">
-            <p><strong>{c.author}</strong>: {c.content}</p>
+            <p><strong>{c.commenterName}</strong>: {c.text}</p>
           </div>
         ))
       )}
 
       <CommentForm productId={id} onCommentAdded={handleNewComment} />
-      <RatingForm artisanName={product.artistName} onRated={handleNewRating} />
+
+      {alreadyRated ? (
+        <p>⭐ Você já avaliou este artesão.</p>
+      ) : (
+        <RatingForm artisanName={product.artistName} onRated={handleNewRating} />
+      )}
 
       <Link to="/products" className="back-button">Voltar para Lista</Link>
     </div>

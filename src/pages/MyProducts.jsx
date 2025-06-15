@@ -7,30 +7,53 @@ export default function MyProducts() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserProducts = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const res = await fetch('https://artelocal-backend.vercel.app/products/my', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  const fetchUserProducts = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('https://artelocal-backend.vercel.app/products/my', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
 
-        const data = await res.json();
+      const data = await res.json();
 
-        if (res.ok) {
-          setProducts(data);
-        } else {
-          toast.error(data.message || 'Erro ao carregar seus anúncios.');
-        }
-      } catch (err) {
-        toast.error('Erro de rede ao carregar seus anúncios.');
+      if (res.ok) {
+        setProducts(data);
+      } else {
+        toast.error(data.message || 'Erro ao carregar seus anúncios.');
       }
-    };
+    } catch {
+      toast.error('Erro de rede ao carregar seus anúncios.');
+    }
+  };
 
+  useEffect(() => {
     fetchUserProducts();
   }, []);
+
+  const handleDelete = async (productId) => {
+    const confirmDelete = window.confirm('Tem certeza que deseja excluir esta obra?');
+
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`https://artelocal-backend.vercel.app/products/${productId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success('Obra excluída com sucesso!');
+        fetchUserProducts();
+      } else {
+        toast.error(data.message || 'Erro ao excluir a obra.');
+      }
+    } catch {
+      toast.error('Erro de rede ao tentar excluir.');
+    }
+  };
 
   const handleBack = () => {
     navigate('/dashboard-artisan');
@@ -59,6 +82,13 @@ export default function MyProducts() {
                   onError={(e) => { e.target.style.display = 'none'; }}
                 />
               )}
+
+              <button
+                onClick={() => handleDelete(product.id)}
+                className="delete-button"
+              >
+                Excluir Obra
+              </button>
             </div>
           ))}
         </div>

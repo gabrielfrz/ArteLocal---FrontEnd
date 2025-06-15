@@ -24,9 +24,10 @@ export default function DashboardClient() {
         </Link>
       </div>
 
-      <button onClick={handleLogout} className="logout-button">
-        Sair
-      </button>
+<Link to="/" className="client-button secondary">Voltar ao Início</Link>
+<button onClick={handleLogout} className="logout-button">
+  Sair
+</button>
     </div>
   );
 }
