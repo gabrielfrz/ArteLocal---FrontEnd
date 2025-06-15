@@ -45,6 +45,8 @@ export default function Products() {
               <p>{product.description}</p>
               <p><strong>Preço:</strong> R$ {product.price}</p>
               <p><strong>Contato:</strong> {product.contact}</p>
+              <p><strong>Artista:</strong> {product.artistName}</p>
+              <p><strong>Email do Artista:</strong> {product.artistEmail}</p>
 
               {product.image && (
                 <img
