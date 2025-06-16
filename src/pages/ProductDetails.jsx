@@ -5,6 +5,17 @@ import CommentForm from './CommentForm';
 import RatingForm from './RatingForm';
 import './products.css';
 
+
+function getUserNameFromToken(token) {
+  try {
+    const payloadBase64 = token.split('.')[1];
+    const decodedPayload = JSON.parse(atob(payloadBase64));
+    return decodedPayload.name;
+  } catch {
+    return '';
+  }
+}
+
 export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -17,8 +28,8 @@ export default function ProductDetails() {
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        const decoded = jwt_decode(token);
-        setLoggedUserName(decoded.name);
+        const userName = getUserNameFromToken(token);
+        setLoggedUserName(userName);
       }
 
       const resProduct = await fetch(`https://artelocal-backend.vercel.app/products/${id}`, {
