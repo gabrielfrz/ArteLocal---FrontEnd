@@ -208,3 +208,17 @@
 .delete-button:hover {
   background-color: #b91c1c;
 }
+.delete-comment-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.delete-comment-btn:hover {
+  background-color: #d9363e;
+}

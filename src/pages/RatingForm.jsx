@@ -16,25 +16,31 @@ export default function RatingForm({ artisanName, onRated }) {
 
     try {
       const token = localStorage.getItem('token');
+
       const res = await fetch('https://artelocal-backend.vercel.app/ratings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ artisanName, score: numericScore })
+        body: JSON.stringify({
+          artisanName,
+          score: numericScore
+        })
       });
 
       const data = await res.json();
+
       if (res.ok) {
-        toast.success('Avaliação enviada!');
+        toast.success('Avaliação enviada com sucesso!');
         setScore('');
-        if (onRated) onRated();
+        if (onRated) onRated(); 
       } else {
         toast.error(data.message || 'Erro ao enviar avaliação.');
       }
-    } catch {
-      toast.error('Erro de rede.');
+    } catch (error) {
+      console.error('Erro na requisição de avaliação:', error);
+      toast.error('Erro de rede ao enviar avaliação.');
     }
   };
 
