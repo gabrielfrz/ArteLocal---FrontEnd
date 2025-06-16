@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CommentForm from './CommentForm';
 import RatingForm from './RatingForm';
-import jwt_decode from 'jwt-decode';
 import './products.css';
 
 export default function ProductDetails() {
